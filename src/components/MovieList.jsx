@@ -1,7 +1,3 @@
-/* eslint-disable react/jsx-indent */
-/* eslint-disable class-methods-use-this */
-/* eslint-disable react/prefer-stateless-function */
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import MovieItem from './MovieItem';
 
@@ -77,15 +73,19 @@ class MovieList extends Component {
         <h3>My favourites:</h3>
         {favourites.length === 0
           ? 'No favourite yet'
-          : favourites.map((favourite) => (
-              <div key={favourite.id}>{favourite.title}</div>
-            ))}
+          : favourites.map((favourite) => {
+              return <div key={favourite.id}>{favourite.title}</div>;
+            })}
         <h3>All movies:</h3>
         <ul>
           {movies.map((movie) => (
             <li key={movie.id}>
               <MovieItem
-                {...movie}
+                id={movie.id}
+                title={movie.title}
+                director={movie.director}
+                release={movie.release}
+                poster={movie.poster}
                 favourite={favourites.includes(movie)}
                 handleFavouriteChange={this.handleFavouriteChange}
                 handleAllLikes={this.handleAllLikes}

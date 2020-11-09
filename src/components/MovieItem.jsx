@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-constructor */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
