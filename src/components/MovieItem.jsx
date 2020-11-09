@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchOne } from '../FakeApi';
 import './Movie.css';
 
 function MovieItem(props) {
-  // props.match.params.imdbId
   const {
     match: {
       params: { imdbId },
@@ -17,6 +17,10 @@ function MovieItem(props) {
       <h3>{director}</h3>
       <div>{imdbId}</div>
       <img src={poster} alt={title} />
+      <br />
+      <button type="button">Add to favourite</button>
+      <br />
+      <Link to="/movies/">Go to the list</Link>
     </article>
   );
 }

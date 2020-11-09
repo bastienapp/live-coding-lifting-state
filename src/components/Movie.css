@@ -1,3 +1,10 @@
+.Movie {
+  display: flex;
+  flex-direction: column;
+}
 .Movie img {
+  width: 200px;
+}
+.Movie button {
   width: 200px;
 }
