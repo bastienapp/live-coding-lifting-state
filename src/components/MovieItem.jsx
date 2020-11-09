@@ -1,36 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchOne } from '../FakeApi';
 import './Movie.css';
 
 function MovieItem(props) {
-  const {
-    match: {
-      params: { imdbId },
-    },
-  } = props;
-  const { release, title, director, poster } = fetchOne(imdbId);
+  const { id, release, title, director, poster } = props;
   return (
     <article className="Movie">
       <h2>{`${title} (${release})`}</h2>
       <h3>{director}</h3>
-      <div>{imdbId}</div>
+      <div>{id}</div>
       <img src={poster} alt={title} />
       <br />
       <button type="button">Add to favourite</button>
       <br />
-      <Link to="/movies/">Go to the list</Link>
     </article>
   );
 }
 
 MovieItem.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      imdbId: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
+  id: PropTypes.string.isRequired,
+  release: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  director: PropTypes.string.isRequired,
+  poster: PropTypes.string.isRequired,
 };
 
 export default MovieItem;
