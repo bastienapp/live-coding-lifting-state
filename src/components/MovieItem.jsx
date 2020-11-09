@@ -9,8 +9,10 @@ class MovieItem extends Component {
     const { favourite } = props;
     this.state = {
       favourite,
+      like: 0,
     };
     this.handleFavourite = this.handleFavourite.bind(this);
+    this.handleLike = this.handleLike.bind(this);
   }
 
   handleFavourite() {
@@ -22,9 +24,18 @@ class MovieItem extends Component {
     handleFavouriteChange(id);
   }
 
+  handleLike() {
+    const { like } = this.state;
+    const { handleAllLikes } = this.props;
+    handleAllLikes();
+    this.setState({
+      like: like + 1,
+    });
+  }
+
   render() {
     const { id, release, title, director, poster } = this.props;
-    const { favourite } = this.state;
+    const { favourite, like } = this.state;
     return (
       <article className="Movie">
         <h2>{`${title} (${release})`}</h2>
@@ -34,6 +45,9 @@ class MovieItem extends Component {
         <br />
         <button type="button" onClick={this.handleFavourite}>
           {favourite ? 'Remove from favourite' : 'Add to favourite'}
+        </button>
+        <button type="button" onClick={this.handleLike}>
+          {`Like (${like})`}
         </button>
         <br />
       </article>
@@ -48,6 +62,7 @@ MovieItem.propTypes = {
   director: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
   handleFavouriteChange: PropTypes.func.isRequired,
+  handleAllLikes: PropTypes.func.isRequired,
   favourite: PropTypes.bool.isRequired,
 };
 

@@ -37,8 +37,17 @@ class MovieList extends Component {
     super(props);
     this.state = {
       favourites: [],
+      likes: 0,
     };
     this.handleFavouriteChange = this.handleFavouriteChange.bind(this);
+    this.handleAllLikes = this.handleAllLikes.bind(this);
+  }
+
+  handleAllLikes() {
+    const { likes } = this.state;
+    this.setState({
+      likes: likes + 1,
+    });
   }
 
   handleFavouriteChange(id) {
@@ -61,9 +70,10 @@ class MovieList extends Component {
   }
 
   render() {
-    const { favourites } = this.state;
+    const { favourites, likes } = this.state;
     return (
       <section className="Movies">
+        <div>{`Total like : ${likes}`}</div>
         <h3>My favourites:</h3>
         {favourites.length === 0
           ? 'No favourite yet'
@@ -78,6 +88,7 @@ class MovieList extends Component {
                 {...movie}
                 favourite={favourites.includes(movie)}
                 handleFavouriteChange={this.handleFavouriteChange}
+                handleAllLikes={this.handleAllLikes}
               />
             </li>
           ))}
