@@ -1,5 +1,8 @@
+/* eslint-disable react/jsx-indent */
+/* eslint-disable class-methods-use-this */
+/* eslint-disable react/prefer-stateless-function */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { Component } from 'react';
 import MovieItem from './MovieItem';
 
 const movies = [
@@ -29,21 +32,59 @@ const movies = [
   },
 ];
 
-function MovieList() {
-  return (
-    <section className="Movies">
-      <h3>My favourites:</h3>
-      <span>No favourite yet</span>
-      <h3>All movies:</h3>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <MovieItem {...movie} />
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
+class MovieList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      favourites: [],
+    };
+    this.handleFavouriteChange = this.handleFavouriteChange.bind(this);
+  }
+
+  handleFavouriteChange(id) {
+    // trouver le film avec l'identifiant
+    const favourite = movies.find((movie) => movie.id === id);
+
+    // ajouter le film à la liste de mes favoris
+    const { favourites } = this.state;
+    if (favourites.includes(favourite)) {
+      // le retirer
+      this.setState({
+        favourites: favourites.filter((movie) => movie !== favourite),
+      });
+    } else {
+      favourites.push(favourite);
+      this.setState({
+        favourites,
+      });
+    }
+  }
+
+  render() {
+    const { favourites } = this.state;
+    return (
+      <section className="Movies">
+        <h3>My favourites:</h3>
+        {favourites.length === 0
+          ? 'No favourite yet'
+          : favourites.map((favourite) => (
+              <div key={favourite.id}>{favourite.title}</div>
+            ))}
+        <h3>All movies:</h3>
+        <ul>
+          {movies.map((movie) => (
+            <li key={movie.id}>
+              <MovieItem
+                {...movie}
+                favourite={favourites.includes(movie)}
+                handleFavouriteChange={this.handleFavouriteChange}
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  }
 }
 
 export default MovieList;
