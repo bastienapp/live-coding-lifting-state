@@ -1,0 +1,21 @@
+.ContactUs {
+  display: flex;
+  flex-direction: column;
+}
+
+.ContactUs label {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.ContactUs span,
+.ContactUs input,
+.ContactUs textarea {
+  margin: 3px;
+  width: 300px;
+}
+
+.ContactUs input {
+  width: 100px;
+}
